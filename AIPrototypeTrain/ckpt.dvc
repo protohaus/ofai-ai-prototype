@@ -1,0 +1,3 @@
+outs:
+- md5: f9fc231b4c5be830fd579b485e76ed93.dir
+  path: ckpt

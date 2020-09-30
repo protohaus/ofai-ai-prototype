@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Visual Studio Files
+.AIPrototype.sln
+.AIPrototypeTrain/AIPrototypeTrain.pyproj
+/data_n_1500_c_12
+/Trained_Models
