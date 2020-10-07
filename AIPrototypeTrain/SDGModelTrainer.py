@@ -1,8 +1,6 @@
 # %% [code]
 import numpy as np # linear algebra
 import cv2 #OpenCV2
-from os import listdir
-#from sklearn.preprocessing import LabelBinarizer
 import tensorflow as tf
 from keras.models import Sequential
 from keras import layers
@@ -13,16 +11,11 @@ from keras.layers.core import Activation, Flatten, Dropout, Dense
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
-#from keras.preprocessing.image import img_to_array
 from keras.preprocessing import image_dataset_from_directory
 from keras.models import load_model
 from keras import callbacks
-#from sklearn.preprocessing import MultiLabelBinarizer
-#from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-import pickle
 import os
-import gc
 import PIL
 import PIL.Image
 from datetime import datetime
@@ -30,8 +23,6 @@ from datetime import datetime
 # %% [code]
 dir_name = os.path.dirname(__file__)
 data_dir = os.path.join(dir_name,'..', 'data_n_1500_c_12','train','color')
-
-# model_dir = os.path.join(dir_name,'plantdiseasewithtfdatasets','model')
 
 batch_size = 64
 img_height = 256
@@ -66,27 +57,6 @@ img_flow_val = img_gen.flow_from_directory(data_dir,
                                              target_size=(img_height,img_width),
                                              subset = 'validation')
 
-# %% [markdown]
-# # count images
-# weights = {}
-# 
-# for i,folder in enumerate(os.listdir(data_train_dir)):
-#     print(folder)
-#     print(len(os.listdir(os.path.join(data_train_dir,folder))))
-#     weights[i] = (len(os.listdir(os.path.join(data_train_dir,folder))))
-#     
-# print(weights)
-# values = list(weights.values())
-# max = weights[np.argmax(values)]
-# print("Minimal data of %d images" % weights[np.argmin(values)])
-# print(max)
-# # normalizing and inverting
-# for entry in weights:
-#     weights[entry] = max/weights[entry]
-# 
-# print(weights)
-# 
-
 # %% [code]
 images, labels = next(img_flow_train)
 print(images.shape, labels.shape)
@@ -109,18 +79,14 @@ def make_model(i):
     if K.image_data_format() == "channels_first":
         inputShape = (depth, img_height, img_width)
         chanDim = 1
-        
-    ##########################################################################################################
-    # First layer of CNN with 32 filters (ie 3x3 matrices, 3x3 kernels), padding at border uses same pixels,
-    # rectified linear unit. Activation function is "does the neuron fire or not"
-    # BatchNormalization normalizes the output between 0 and 1, MaxPooling reduces the dimension
+
     models.append(Sequential())
     models[0].add(layers.experimental.preprocessing.Rescaling(1./255, input_shape=inputShape))
+    # First layer
     models[0].add(Conv2D(32, (3, 3), padding="same"))
     models[0].add(Activation("relu"))
     models[0].add(BatchNormalization(axis=chanDim))
     models[0].add(MaxPooling2D(pool_size=(3, 3)))
-    # Google patent Dropout: reduces overfitting
     models[0].add(Dropout(0.25))
 
     # Second layer
@@ -149,7 +115,6 @@ def make_model(i):
     # Flattens the input
     models[0].add(Flatten())
 
-    # Dense: fully connected NN layer with input units: dimensionality of output space
     models[0].add(Dense(1024))
     models[0].add(Activation("relu"))
     models[0].add(BatchNormalization())
@@ -201,7 +166,7 @@ def make_model(i):
 def make_or_restore_model(mdl):
     # Either restore the latest model, or create a fresh one
     # if there is no checkpoint available.
-    # TODO: adapt to multiple models
+    # TODO: adapt to multiple models, at the moment there is no differentiation between the models
     checkpoints = [checkpoint_dir + '/' + name
                    for name in os.listdir(checkpoint_dir)]
     if checkpoints:
@@ -226,7 +191,7 @@ model_callbacks = [
         verbose=1,
         save_best_only=True,
         mode="auto",
-        save_freq="epoch")#,
+        save_freq="epoch")#, no early stops at the moment
     #callbacks.EarlyStopping(
     #    monitor="val_accuracy",
     #    patience=3,
@@ -243,7 +208,6 @@ history = model.fit(
     epochs = EPOCHS,
     verbose=1,
     workers=8,
-    #class_weight=weights,
     callbacks = model_callbacks)
 
 # %% [code]
@@ -272,7 +236,3 @@ plt.title('Training and Validation loss')
 plt.legend()
 plt.show()
 plt.savefig(dir_name + '/ckpt/' + save + '/' +save + '_Loss.png')
-
-# %% [code]
-#print("Saving Model")
-#model.save('my_model/Tairu_segmented_50_Full')
