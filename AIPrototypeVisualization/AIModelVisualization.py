@@ -22,12 +22,15 @@ model_name = 'SDGModel-E50'
 image_dir = os.path.join(dir_name,'visualize')
 model_dir = os.path.join(dir_name,'..','Trained_Models', model_name)
 
-
 filename = os.listdir(image_dir)[0]
 if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')) == True:
     img = image.load_img(os.path.join(image_dir,filename))
     img.filename = filename
     print(img.filename)
+
+figures_dir = os.path.join(dir_name,'figures',model_name,filename)
+if not os.path.exists(figures_dir):
+    os.makedirs(figures_dir)
 
 image_array = []
 
@@ -55,14 +58,14 @@ model = load_model(model_dir)
 
 model.summary()
 
-layer_outputs = [layer.output for layer in model.layers[1:12]]
+layer_outputs = [layer.output for layer in model.layers[1:13]]
 activation_model = Model(inputs=model.input,outputs=layer_outputs)
 
 # Get Activations
 activations = activation_model.predict(image_array)
 
 layer_names = []
-for layer in model.layers[1:12]:
+for layer in model.layers[1:13]:
     layer_names.append(layer.name) # Names of the layers, so you can have them as part of your plot
     
 images_per_row = 16
@@ -91,3 +94,6 @@ for layer_name, layer_activation in zip(layer_names, activations): # Displays th
     plt.title(layer_name)
     plt.grid(False)
     plt.imshow(display_grid, aspect='auto', cmap='viridis')
+    plt.savefig(figures_dir + '/' + layer_name + '.png')
+
+# %%
