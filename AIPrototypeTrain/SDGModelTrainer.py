@@ -38,6 +38,16 @@ if mdl == 0:
 else:
     save = '/SDGModel-E50'
 
+# Prepare a directory to store all the checkpoints.
+checkpoint_dir = os.path.join(dir_name,'ckpt')
+if not os.path.exists(checkpoint_dir):
+    os.makedirs(checkpoint_dir)
+
+# Prepare log directory for tensorboard
+log_dir = os.path.join(dir_name,'logs')
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
 # %% [code]
 img_gen = ImageDataGenerator(rotation_range = 180,width_shift_range = 0.1, 
                          height_shift_range = 0.1, shear_range = 0.2, zoom_range  = 0.2, brightness_range = [0.5, 1.5], horizontal_flip = True, fill_mode = "nearest",
@@ -63,11 +73,6 @@ print(images.shape, labels.shape)
 print(img_flow_train.class_indices)
 
 # %% [code]
-# Prepare a directory to store all the checkpoints.
-checkpoint_dir = './ckpt'
-if not os.path.exists(checkpoint_dir):
-    os.makedirs(checkpoint_dir)
-
 
 def make_model(i):
     num_classes = len(img_flow_train.class_indices)
@@ -191,7 +196,15 @@ model_callbacks = [
         verbose=1,
         save_best_only=True,
         mode="auto",
-        save_freq="epoch")#, no early stops at the moment
+        save_freq="epoch"),
+    callbacks.TensorBoard(
+        log_dir=log_dir,
+        histogram_freq=1, 
+        write_graph=True, 
+        write_images=True,
+        update_freq='epoch', 
+        profile_batch=2
+    )#, no early stops at the moment
     #callbacks.EarlyStopping(
     #    monitor="val_accuracy",
     #    patience=3,
