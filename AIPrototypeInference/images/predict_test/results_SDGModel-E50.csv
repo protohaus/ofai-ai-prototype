@@ -1,0 +1,37 @@
+Image Name,Class 1,Propability,Class 2,Propability,Class 3,Propability
+Apple_Healthy (1).JPG,Apple___healthy,99.99905824661255,Tomato___Bacterial_spot,0.0007424401246680645,Soybean___healthy,0.00019616559256974142
+Apple_Healthy (2).JPG,Apple___healthy,99.99994039535522,Tomato___Bacterial_spot,5.649273475683003e-05,Soybean___healthy,6.160346455175159e-07
+Apple_Healthy (3).JPG,Apple___healthy,99.9926209449768,Soybean___healthy,0.0073629933467600495,Peach___Bacterial_spot,7.941815738377045e-06
+Blueberry_Healthy (1).JPG,Blueberry___healthy,99.99996423721313,Apple___healthy,2.1798389582272648e-05,Orange___Haunglongbing_(Citrus_greening),9.180366333794154e-06
+Blueberry_Healthy (2).JPG,Blueberry___healthy,100.0,Apple___healthy,1.7474484081958508e-06,Orange___Haunglongbing_(Citrus_greening),3.522958834378809e-11
+Blueberry_Healthy (3).JPG,Blueberry___healthy,100.0,Orange___Haunglongbing_(Citrus_greening),9.982369597594243e-07,Tomato___Spider_mites Two-spotted_spider_mite,5.480094850129902e-09
+Oranges (1).JPG,Orange___Haunglongbing_(Citrus_greening),99.99998807907104,Tomato___Tomato_Yellow_Leaf_Curl_Virus,8.87236311086781e-06,Blueberry___healthy,5.714126394273933e-08
+Oranges (2).JPG,Orange___Haunglongbing_(Citrus_greening),100.0,Tomato___Tomato_Yellow_Leaf_Curl_Virus,5.327988768185805e-20,Blueberry___healthy,5.675742983677544e-22
+Oranges (3).JPG,Orange___Haunglongbing_(Citrus_greening),100.0,Tomato___Late_blight,1.3920843366932445e-07,Tomato___Tomato_Yellow_Leaf_Curl_Virus,8.881971269580902e-08
+Peach_Bacterial_Spot (1).JPG,Peach___Bacterial_spot,100.0,Tomato___Septoria_leaf_spot,1.5188177826530591e-06,Tomato___Bacterial_spot,8.476857438211027e-07
+Peach_Bacterial_Spot (2).JPG,Peach___Bacterial_spot,100.0,Tomato___Septoria_leaf_spot,1.3486362027137488e-08,Tomato___Bacterial_spot,1.852832394889231e-11
+Peach_Bacterial_Spot (3).JPG,Peach___Bacterial_spot,100.0,Orange___Haunglongbing_(Citrus_greening),7.325438541351537e-11,Tomato___Septoria_leaf_spot,2.3489705935019443e-13
+Soybean (1).JPG,Soybean___healthy,100.0,Apple___healthy,1.4333784159603624e-07,Orange___Haunglongbing_(Citrus_greening),2.305196526357883e-15
+Soybean (2).JPG,Soybean___healthy,100.0,Tomato___Septoria_leaf_spot,3.5081569593753414e-09,Apple___healthy,5.0153159620106025e-11
+Soybean (3).JPG,Soybean___healthy,100.0,Apple___healthy,1.1899232684256522e-10,Orange___Haunglongbing_(Citrus_greening),1.7867683989813109e-12
+Squash_Powdery_Mildew (1).JPG,Squash___Powdery_mildew,99.99386072158813,Tomato___Late_blight,0.00613724478171207,Tomato___Septoria_leaf_spot,4.063119840580498e-08
+Squash_Powdery_Mildew (2).JPG,Squash___Powdery_mildew,100.0,Orange___Haunglongbing_(Citrus_greening),5.058307469617847e-22,Tomato___Late_blight,2.412128069952877e-26
+Squash_Powdery_Mildew (3).JPG,Squash___Powdery_mildew,100.0,Tomato___healthy,1.4671263878253404e-11,Apple___healthy,5.547180146866018e-12
+Tomato_Bacterial_Spot (1).JPG,Tomato___Bacterial_spot,100.0,Tomato___Late_blight,1.538739883637348e-16,Tomato___Septoria_leaf_spot,2.0026858501411416e-19
+Tomato_Bacterial_Spot (2).JPG,Tomato___Bacterial_spot,100.0,Tomato___Septoria_leaf_spot,2.2904565744052974e-08,Peach___Bacterial_spot,1.4869862441791847e-13
+Tomato_Bacterial_Spot (3).JPG,Tomato___Bacterial_spot,99.97864365577698,Peach___Bacterial_spot,0.012880259600933641,Tomato___Late_blight,0.006825080345151946
+Tomato_Healthy (1).JPG,Tomato___healthy,100.0,Tomato___Late_blight,4.804115438794554e-10,Tomato___Septoria_leaf_spot,4.877290487417636e-15
+Tomato_Healthy (2).JPG,Tomato___healthy,100.0,Tomato___Late_blight,9.501994746585751e-08,Apple___healthy,9.994917640068064e-16
+Tomato_Healthy (3).JPG,Tomato___healthy,100.0,Tomato___Late_blight,9.458843391768374e-17,Tomato___Septoria_leaf_spot,6.110584364576e-24
+Tomato_Late_Blight (1).JPG,Tomato___Late_blight,100.0,Peach___Bacterial_spot,1.5318266100017297e-08,Tomato___Septoria_leaf_spot,1.2587562936428043e-08
+Tomato_Late_Blight (2).JPG,Tomato___Late_blight,100.0,Tomato___Septoria_leaf_spot,2.6670364944540584e-14,Peach___Bacterial_spot,6.938869838121282e-18
+Tomato_Late_Blight (3).JPG,Tomato___Late_blight,99.98948574066162,Tomato___Septoria_leaf_spot,0.0105172315670643,Peach___Bacterial_spot,7.64500293040822e-12
+Tomato_Septoria_Leaf_Spot (1).JPG,Tomato___Septoria_leaf_spot,100.0,Tomato___Late_blight,3.3491787121420202e-06,Tomato___Bacterial_spot,7.696703517579007e-10
+Tomato_Septoria_Leaf_Spot (2).JPG,Tomato___Septoria_leaf_spot,99.99998807907104,Peach___Bacterial_spot,1.643735316747552e-05,Tomato___Bacterial_spot,4.3989296627771745e-13
+Tomato_Septoria_Leaf_Spot (3).JPG,Tomato___Septoria_leaf_spot,100.0,Tomato___Bacterial_spot,1.8597493028248877e-20,Tomato___Late_blight,1.766116435867202e-20
+Tomato_Spider_mites (1).JPG,Tomato___Spider_mites Two-spotted_spider_mite,100.0,Tomato___healthy,1.8947941882174746e-06,Orange___Haunglongbing_(Citrus_greening),3.3939406840488573e-07
+Tomato_Spider_mites (2).JPG,Tomato___Spider_mites Two-spotted_spider_mite,99.99995231628418,Tomato___Septoria_leaf_spot,5.157107807463035e-05,Tomato___healthy,1.270607974390714e-06
+Tomato_Spider_mites (3).JPG,Tomato___Spider_mites Two-spotted_spider_mite,99.956613779068,Squash___Powdery_mildew,0.026878833887167275,Apple___healthy,0.013261270942166448
+Tomato_Yellow_Leaf_curl (1).JPG,Tomato___Tomato_Yellow_Leaf_Curl_Virus,100.0,Orange___Haunglongbing_(Citrus_greening),5.762771715985687e-14,Tomato___Bacterial_spot,1.338693353836957e-14
+Tomato_Yellow_Leaf_curl (2).JPG,Tomato___Tomato_Yellow_Leaf_Curl_Virus,100.0,Tomato___Spider_mites Two-spotted_spider_mite,2.1179180631492045e-08,Soybean___healthy,6.241120120709098e-09
+Tomato_Yellow_Leaf_curl (3).JPG,Tomato___Tomato_Yellow_Leaf_Curl_Virus,99.99998807907104,Orange___Haunglongbing_(Citrus_greening),7.825770609315441e-06,Tomato___Bacterial_spot,1.2158270834561336e-06
