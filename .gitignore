@@ -134,3 +134,5 @@ dmypy.json
 .vscode/settings.json
 /data_n_2000_c_5
 /AIPrototypeVisualization/figures
+AIPrototypeVisualization/AIDeepDreamInception.py
+AIPrototypeVisualization/AINeuralStzleTransferVGG16.py

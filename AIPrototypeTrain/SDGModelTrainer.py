@@ -22,21 +22,21 @@ from datetime import datetime
 
 # %% [code]
 dir_name = os.path.dirname(__file__)
-data_dir = os.path.join(dir_name,'..', 'data_n_1500_c_12','train','color')
+data_dir = os.path.join(dir_name,'..', 'data_n_1500_c_12','train','segmented')
 
 batch_size = 64
 img_height = 256
 img_width = 256
 depth=3
 
-EPOCHS = 50
+EPOCHS = 100
 INIT_LR = 1e-3
 
 mdl = 1
 if mdl == 0:
-    save = '/Tairu-E25'
+    save = 'Tairu-E25'
 else:
-    save = '/SDGModel-E50'
+    save = 'SDGModel_2-E100_segmented'
 
 # Prepare a directory to store all the checkpoints.
 checkpoint_dir = os.path.join(dir_name,'ckpt')
@@ -48,8 +48,17 @@ log_dir = os.path.join(dir_name,'logs')
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
+def preprocess_image(image):
+    # pixel values between [0,1]
+    image = np.divide(image, 255.0)
+    # pixel values between [-0.5,0.5]
+    image = np.subtract(image, 0.5)
+    # pixel values between [-1,1]
+    image = np.multiply(image,2.0)
+    return image
+
 # %% [code]
-img_gen = ImageDataGenerator(rotation_range = 180,width_shift_range = 0.1, 
+img_gen = ImageDataGenerator(preprocessing_function=preprocess_image,rotation_range = 180,width_shift_range = 0.1, 
                          height_shift_range = 0.1, shear_range = 0.2, zoom_range  = 0.2, brightness_range = [0.5, 1.5], horizontal_flip = True, fill_mode = "nearest",
                             vertical_flip = True, validation_split = 0.2)
 
@@ -86,7 +95,7 @@ def make_model(i):
         chanDim = 1
 
     models.append(Sequential())
-    models[0].add(layers.experimental.preprocessing.Rescaling(1./255, input_shape=inputShape))
+    #models[0].add(layers.experimental.preprocessing.Rescaling(1./255, input_shape=inputShape))
     # First layer
     models[0].add(Conv2D(32, (3, 3), padding="same"))
     models[0].add(Activation("relu"))
@@ -132,23 +141,33 @@ def make_model(i):
     
     models.append(Sequential())
     # Layer 1
-    models[1].add(layers.experimental.preprocessing.Rescaling(1./255, input_shape=inputShape))
+    #models[1].add(layers.experimental.preprocessing.Rescaling(1./255, input_shape=inputShape))
+    models[1].add(Conv2D(16, (3, 3), padding="same"))
+    models[1].add(Activation("relu"))
+    #models[1].add(MaxPooling2D(pool_size=(2, 2)))
+    
+    # Layer 2
     models[1].add(Conv2D(16, (3, 3), padding="same"))
     models[1].add(Activation("relu"))
     models[1].add(MaxPooling2D(pool_size=(2, 2)))
     
-    # Layer 2
+    # Layer 3
+    models[1].add(Conv2D(32, (3, 3), padding="same"))
+    models[1].add(Activation("relu"))
+    #models[1].add(MaxPooling2D(pool_size=(2, 2)))
+    
+    # Layer 4
     models[1].add(Conv2D(32, (3, 3), padding="same"))
     models[1].add(Activation("relu"))
     models[1].add(MaxPooling2D(pool_size=(2, 2)))
-    
-    # Layer 3
+
+    # Layer 5
     models[1].add(Conv2D(64, (3, 3), padding="same"))
     models[1].add(Activation("relu"))
     models[1].add(MaxPooling2D(pool_size=(2, 2)))
-    
-    # Layer 4
-    models[1].add(Conv2D(128, (3, 3), padding="same"))
+
+    # Layer 6
+    models[1].add(Conv2D(64, (3, 3), padding="same"))
     models[1].add(Activation("relu"))
     models[1].add(MaxPooling2D(pool_size=(2, 2)))
     
@@ -173,14 +192,13 @@ def make_or_restore_model(mdl):
     # if there is no checkpoint available.
     # TODO: adapt to multiple models, at the moment there is no differentiation between the models
     checkpoints = [checkpoint_dir + '/' + name
-                   for name in os.listdir(checkpoint_dir)]
+                   for name in os.listdir(checkpoint_dir) if name == save]
     if checkpoints:
-        latest_checkpoint = max(checkpoints, key=os.path.getctime)
-        print('Restoring from', latest_checkpoint)
-        return load_model(latest_checkpoint)
+            latest_checkpoint = max(checkpoints, key=os.path.getctime)
+            print('Restoring from', latest_checkpoint)
+            return load_model(latest_checkpoint)
     print('Creating a new model')
     return make_model(mdl)
-
 
 model = make_or_restore_model(mdl)
 
@@ -191,7 +209,7 @@ model.summary()
 model_callbacks = [
     # We include the training loss in the folder name.
     callbacks.ModelCheckpoint(
-        filepath=checkpoint_dir + save,
+        filepath=checkpoint_dir + '/' + save,
         monitor="val_accuracy",
         verbose=1,
         save_best_only=True,
