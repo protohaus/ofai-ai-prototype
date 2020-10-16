@@ -17,20 +17,17 @@ import sys
 from datetime import datetime
 import matplotlib.pyplot as plt
 
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT,PACKAGE_PARENT)))
+
+from ofai_ai_prototype.Utilities import SDGUtilities
+
 # Definitions
 dir_name = os.path.dirname(__file__)
 model_name = 'SDGModel_2-E100_segmented'
 image_dir = os.path.join(dir_name,'visualize')
 model_dir = os.path.join(dir_name,'..','Trained_Models', model_name)
-
-def preprocess_image(image):
-    # pixel values between [0,1]
-    image = np.divide(image, 255.0)
-    # pixel values between [-0.5,0.5]
-    image = np.subtract(image, 0.5)
-    # pixel values between [-1,1]
-    image = np.multiply(image,2.0)
-    return image
 
 # Load model
 
@@ -69,7 +66,7 @@ for filename in os.listdir(image_dir):
 
     image_array = image.img_to_array(img_cropped)
     image_array = np.expand_dims(image_array, axis=0)
-    image_array = preprocess_image(image_array)
+    image_array = SDGUtilities.preprocess_image(image_array)
 
     # Get Activations
     activations = activation_model.predict(image_array)

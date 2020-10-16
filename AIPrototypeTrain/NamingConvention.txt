@@ -1,0 +1,28 @@
+Extensive experiments with different CNN Architectures shall be performed. With so many trained models a naming convention
+is necessary. The goal of this naming convention is to clearly identify the CNN's architecture: How many Layers, how many filters,
+kernel size, dense layer size and additional features like dropout, batch normalization and/or l2 regularization.
+
+1 Each model starts with SDG for SmartDigitalGarden
+2 Each Layer is described by kernel size, number of filters and pooling size ie k3f16p2
+3 layers are added consecutively ie _k5f16p2_k3f32p2_
+4 dense layers have the prefix d followed by the depth ie _d1024_
+5 additional features: -dropout: _do_, - batch normalization: _bn_, l2 regularization: _l2r_
+
+So a full name for a 4 Layer CNN might be:
+SDG_k5f16p2_k3f32p2_k3f64p2_k3f128p2_d1024_do_bn_l2r
+
+This is a long name. There are many repetitions.
+
+1 Each model starts with SDG for SmartDigitalGarden
+2 First comes number of total layers: _l4_
+3 Kernel size of first layer: _k3_
+4 Number of filters of first layer: _f16_
+4 dense layers have the prefix d followed by the depth ie _d1024_
+5 additional features: -dropout: _do_, - batch normalization: _bn_, l2 regularization: _l2r_
+
+So the same name would be:
+SDG_l4_k5_f16_d1024_do_bn_l2r
+
+Two Problems: small differences are not catched by this name: ie only first kernel is 5x5, what about the other layers.
+And this design only applies to the conv2d->maxPool->activation structure. Something like conv2d->conv2d->maxPool->activation
+is not part of the name.

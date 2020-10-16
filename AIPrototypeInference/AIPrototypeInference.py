@@ -12,6 +12,12 @@ import gc
 import sys
 from datetime import datetime
 
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT,PACKAGE_PARENT)))
+
+from ofai_ai_prototype.Utilities import SDGUtilities
+
 # Definitions
 dir_name = os.path.dirname(__file__)
 model_name = 'SDGModel_2-E100_segmented'
@@ -23,15 +29,6 @@ class_labels = ['Apple___healthy', 'Blueberry___healthy', 'Orange___Haunglongbin
 'Soybean___healthy', 'Squash___Powdery_mildew', 'Tomato___Bacterial_spot', 'Tomato___Late_blight', 
 'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 
 'Tomato___healthy']
-
-def preprocess_image(image):
-    # pixel values between [0,1]
-    image = np.divide(image, 255.0)
-    # pixel values between [-0.5,0.5]
-    image = np.subtract(image, 0.5)
-    # pixel values between [-1,1]
-    image = np.multiply(image,2.0)
-    return image
 
 images = []
 for filename in os.listdir(image_dir):
@@ -61,7 +58,7 @@ for img in images:
 
     x = image.img_to_array(img_cropped)
     x = np.expand_dims(x, axis=0)
-    x = preprocess_image(x)
+    x = SDGUtilities.preprocess_image(x)
     images_array.append(x)
 
 # Load model

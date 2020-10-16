@@ -16,9 +16,17 @@ from keras.models import load_model
 from keras import callbacks
 import matplotlib.pyplot as plt
 import os
+import sys
 import PIL
 import PIL.Image
 from datetime import datetime
+
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT,PACKAGE_PARENT)))
+
+from ofai_ai_prototype.Utilities import SDGUtilities
+from ofai_ai_prototype.AIPrototypeTrain import ModelDefinitions
 
 # %% [code]
 dir_name = os.path.dirname(__file__)
@@ -48,17 +56,8 @@ log_dir = os.path.join(dir_name,'logs')
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
-def preprocess_image(image):
-    # pixel values between [0,1]
-    image = np.divide(image, 255.0)
-    # pixel values between [-0.5,0.5]
-    image = np.subtract(image, 0.5)
-    # pixel values between [-1,1]
-    image = np.multiply(image,2.0)
-    return image
-
 # %% [code]
-img_gen = ImageDataGenerator(preprocessing_function=preprocess_image,rotation_range = 180,width_shift_range = 0.1, 
+img_gen = ImageDataGenerator(preprocessing_function=SDGUtilities.preprocess_image,rotation_range = 180,width_shift_range = 0.1, 
                          height_shift_range = 0.1, shear_range = 0.2, zoom_range  = 0.2, brightness_range = [0.5, 1.5], horizontal_flip = True, fill_mode = "nearest",
                             vertical_flip = True, validation_split = 0.2)
 

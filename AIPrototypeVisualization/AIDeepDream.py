@@ -6,19 +6,17 @@ import IPython.display as display
 import PIL.Image
 from tensorflow.keras.preprocessing import image
 import os
+import sys
 from keras.models import load_model
 import time
 
-url = 'https://storage.googleapis.com/download.tensorflow.org/example_images/YellowLabradorLooking_new.jpg'
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT,PACKAGE_PARENT)))
 
-def preprocess_image(image):
-    # pixel values between [0,1]
-    image = np.divide(image, 255.0)
-    # pixel values between [-0.5,0.5]
-    image = np.subtract(image, 0.5)
-    # pixel values between [-1,1]
-    image = np.multiply(image,2.0)
-    return image
+from ofai_ai_prototype.Utilities import SDGUtilities
+
+url = 'https://storage.googleapis.com/download.tensorflow.org/example_images/YellowLabradorLooking_new.jpg'
 
 # Download an image and read it into a NumPy array.
 def download(url, max_dim=None):
@@ -136,7 +134,7 @@ deepdream = DeepDream(dream_model)
 
 def run_deep_dream_simple(img, steps=100, step_size=0.01):
     # Convert from uint8 to the range expected by the model.
-    img = preprocess_image(img)
+    img = SDGUtilities.preprocess_image(img)
     img = tf.convert_to_tensor(img)
     step_size = tf.convert_to_tensor(step_size)
     steps_remaining = steps
@@ -252,7 +250,7 @@ def run_deep_dream_with_octaves(img, steps_per_octave=500, step_size=0.01,
                                 octaves=range(-2,3), octave_scale=1.3):
   base_shape = tf.shape(img)
   img = tf.keras.preprocessing.image.img_to_array(img)
-  img = preprocess_image(img)
+  img = SDGUtilities.preprocess_image(img)
 
   initial_shape = img.shape[:-1]
   img = tf.image.resize(img, initial_shape)
