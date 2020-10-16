@@ -1,3 +1,5 @@
+import numpy as np # linear algebra
+
 def preprocess_image(image):
     # pixel values between [0,1]
     image = np.divide(image, 255.0)
