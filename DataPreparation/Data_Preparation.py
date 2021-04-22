@@ -15,15 +15,6 @@ n = []
 
 min_images = 1499
 
-if not os.path.exists('data'):
-    os.makedirs('data')
-if not os.path.exists('data/train'):
-    os.makedirs('data/train')
-if not os.path.exists('data/test'):
-    os.makedirs('data/test')
-#if not os.path.exists('data/val'):
-#    os.makedirs('data/val')
-
 for folder in os.listdir(image_dir):
     print(folder)
     image_list = os.listdir(os.path.join(image_dir,folder))
@@ -34,13 +25,13 @@ for folder in os.listdir(image_dir):
         if not os.path.exists(os.path.join(train_target_dir,folder)):
             os.makedirs(os.path.join(train_target_dir,folder))
         if len(os.listdir(os.path.join(train_target_dir,folder))) == 0:
-            for image in image_list[((min_images+1)/6):]:
+            for image in image_list[int((min_images+1)/6):]:
                 shutil.copy(os.path.join(image_dir,folder,image),os.path.join(train_target_dir,folder,image))
 
         if not os.path.exists(os.path.join(test_target_dir,folder)):
             os.makedirs(os.path.join(test_target_dir,folder))
         if len(os.listdir(os.path.join(test_target_dir,folder))) == 0:
-            for image in image_list[:((min_images+1)/6)]:
+            for image in image_list[:int((min_images+1)/6)]:
                 shutil.copy(os.path.join(image_dir,folder,image),os.path.join(test_target_dir,folder,image))
 
     #if not os.path.exists(os.path.join(val_target_dir,folder)):

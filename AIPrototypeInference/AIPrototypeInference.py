@@ -14,14 +14,14 @@ from datetime import datetime
 
 PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
-sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT,PACKAGE_PARENT)))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR,PACKAGE_PARENT)))
 
-from ofai_ai_prototype.Utilities import SDGUtilities
+from Utilities import SDGUtilities
 
 # Definitions
 dir_name = os.path.dirname(__file__)
 model_name = 'SDGModel_2-E100_segmented'
-image_dir = os.path.join(dir_name,'images','predict_google')
+image_dir = os.path.join(dir_name,'images','predict_test')
 model_dir = os.path.join(dir_name,'..','Trained_Models', model_name)
 
 #class labels for 12 classes with 1500 images
@@ -36,8 +36,8 @@ for filename in os.listdir(image_dir):
         img = image.load_img(os.path.join(image_dir,filename))
         img.filename = filename
         print(img.filename)
-    if img is not None:
-        images.append(img)
+        if img is not None:
+            images.append(img)
 
 images_array = []
 

@@ -1,3 +1,5 @@
 outs:
-- md5: 0a543779533e0ccb91f0849f12175341.dir
+- md5: 7cf16e69fdff9e1cfd494e94260faf78.dir
   path: Trained_Models
+  size: 202659739
+  nfiles: 3

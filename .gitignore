@@ -132,6 +132,7 @@ dmypy.json
 /data_n_1500_c_12
 /Trained_Models
 .vscode/settings.json
+.vscode/
 /data_n_2000_c_5
 /AIPrototypeVisualization/figures
 AIPrototypeVisualization/AIDeepDreamInception.py
